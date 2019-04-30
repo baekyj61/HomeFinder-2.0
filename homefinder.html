@@ -9,24 +9,56 @@
 	</head>
 
 	<body onload="loadFile()">
-		<h1>HomeFinder 2.0</h1>
-		
-		<form id="filter">
+		<h1 id="title">HomeFinder 2.0</h1>
 
-			<fieldset>
-				<legend>Filter</legend>
-					Yearbuilt: <input type="number" id="yb" name="yearbuilt" min=1890 max=2016> &emsp;
-					Room Count: <input type="number" id="rc" name="roomcnt" min=0 max=11> &emsp;
-					Bathroom Count: <input type="number" id="bathrc" name="bathroomcnt" min=0 max=6> &emsp;
-					Bedroom Count: <input type="number" id="bedrc" name="bedroomcnt" min=0 max=6> &emsp;
-					Garage Count: <input type="number" id="gc" name="garagecnt" min=0 max=5> &emsp;
-					Pool Count: <input type="number" id="pc" name="poolcnt" min=0 max=1> &emsp;
-			</fieldset>
-		</form>
+		<button type="button" id = "savedList">Saved Houses</button>
 
-		<fieldset>
+		<div id = "map">
 			<svg id="vis" width="1000" height="700"></svg>
-		</fieldset>
-		
+		</div>
+
+		<div id="filters">
+			<form id="filter">
+
+				<fieldset>
+					<legend>Filters</legend>
+						Year Built: <input type="number" id="yb" name="yearbuilt" min=1890 max=2016> &emsp;<br>
+						Room Count: <input type="number" id="rc" name="roomcnt" min=0 max=11> &emsp;<br>
+						Bathroom Count: <input type="number" id="bathrc" name="bathroomcnt" min=0 max=6> &emsp;<br>
+						Bedroom Count: <input type="number" id="bedrc" name="bedroomcnt" min=0 max=6> &emsp;<br>
+						Garage Count: <input type="number" id="gc" name="garagecnt" min=0 max=5> &emsp;<br>
+						Pool Count: <input type="number" id="pc" name="poolcnt" min=0 max=1> &emsp;<br>
+				</fieldset>
+			</form>
+		</div>
+
+		<div id="compareBox">
+			Info about currently selected house.
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<button type="button" id = "compareButton">Compare</button>
+			<button type="button" id = "saveButton" >Save</button>
+		</div>
+
 	</body>
 </html>
