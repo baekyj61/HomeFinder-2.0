@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+			<title>HomeFinder 2.0</title>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
+			<script type="text/javascript" src="homefinder.js"></script>
+			<script src="california.js"></script>
+			<link rel="stylesheet" type="text/css" href="homefinder.css">
+	</head>
+
+	<body onload="loadFile()">
+
+		<form id="filter">
+
+			<fieldset>
+				<legend>HomeFinder 2.0</legend>
+					Yearbuilt: <input type="number" id="yb" name="yearbuilt" min=1890 max=2016> &emsp;
+					Room Count: <input type="number" id="rc" name="roomcnt" min=0 max=11> &emsp;
+					Bathroom Count: <input type="number" id="bathrc" name="bathroomcnt" min=0 max=6> &emsp;
+					Bedroom Count: <input type="number" id="bedrc" name="bedroomcnt" min=0 max=6> &emsp;
+					Garage Count: <input type="number" id="gc" name="garagecnt" min=0 max=5> &emsp;
+					Pool Count: <input type="number" id="pc" name="poolcnt" min=0 max=1> &emsp;
+			</fieldset>
+		</form>
+
+		<fieldset>
+			<svg id="vis" width="1000" height="700"></svg>
+		</fieldset>
+		
+	</body>
+</html>

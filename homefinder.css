@@ -1,0 +1,18 @@
+fieldset {
+	border-radius: 10px;
+	margin-top: 20px;
+}
+
+legend {
+	font-weight: bold;
+	color: #A0522D;
+}
+
+#county {
+	fill: #C0C0C0;
+	stroke: #fff;
+}
+
+#dots {
+	fill: #FF0000;
+}
