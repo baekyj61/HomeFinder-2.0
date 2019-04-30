@@ -4,7 +4,7 @@ function loadFile() {
       type: "FeatureCollection",
       features: [],
     };
-    
+    console.log("working")
     for (i = 0; i < data.length; i++) {
       let longitude = data[i].longitude.split("");
       let latitude = data[i].latitude.split("");
