@@ -31,6 +31,12 @@ function mapPoints(geojson) {
   let height = parseInt(canvas.getAttribute("height"));
   let svg = d3.select(canvas);
   let california = svg.append("g");
+
+  let zoom = d3.zoom()
+              .scaleExtent([1,8])
+              .on("zoom", zoomed);
+
+  svg.call(zoom);
   let projection = d3.geoMercator()
                    .center([ -120, 37 ])
                    .translate([ width/2, height/2 ])
@@ -44,20 +50,6 @@ function mapPoints(geojson) {
     .append("path")
     .attr("id", "county")
     .attr("d", path);
-    // .on("mouseover", function(d){
-    //   let xPosition = width / 2 + 150;
-    //   let yPosition = height / 2;
-    //   d3.select("#tooltip")
-    //   .style("left", xPosition + "px")
-    //   .style("top", yPosition + "px");
-    //   d3.select("#county")
-    //   .text(d.properties.NAME);
-    //   d3.select("#tooltip")
-    //   .classed("hidden", false);
-    //   })
-    //   .on("mouseout", function(){
-    //   d3.select("#tooltip").classed("hidden", true);
-    // });
 
   let dots = svg.append("g");
   dots.selectAll("path")
@@ -65,6 +57,39 @@ function mapPoints(geojson) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("id", "dots");
+    .attr("id", "dots")
+    .attr("r", "10")
+    .on("mouseover", function(d) {
+      let xPosition = d3.event.pageX + 15;
+      let yPosition = d3.event.pageY - 50;
+      console.log(d)
+      d3.select("#tooltip")
+        .style("left", xPosition + "px")
+        .style("top", yPosition + "px");
+      d3.select("#tooltip1")
+        .text(d.properties.taxvaluedollarcnt);
+      d3.select("#tooltip2")
+        .text(d.properties.yearbuilt);
+      d3.select("#tooltip3")
+        .text(d.properties.roomcnt);
+      d3.select("#tooltip4")
+        .text(d.properties.bathroomcnt);
+      d3.select("#tooltip5")
+        .text(d.properties.bedroomcnt);
+      d3.select("#tooltip6")
+        .text(d.properties.garagecarcnt);
+      d3.select("#tooltip")
+        .classed("hidden", false);
+    })
+    .on("mouseout", function(){
+      d3.select("#tooltip").classed("hidden", true);
+    });
 
+  function zoomed() {
+    california.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    california.attr("transform", d3.event.transform); 
+    dots.attr("transform", d3.event.transform); 
+    // addresses.selectAll("path").attr("d", geoPath.pointRadius(1));
+  }
 }
+
