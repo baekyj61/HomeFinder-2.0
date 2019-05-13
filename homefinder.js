@@ -6,6 +6,14 @@ function loadFile() {
     };
     console.log("working")
     for (i = 0; i < data.length; i++) {
+      if (data[i].taxvaluedollarcnt == "" || data[i].yearbuilt == "" ||
+          data[i].roomcnt == "" || data[i].bathroomcnt == "" ||
+          data[i].bedroomcnt == "" || data[i].garagecarcnt == "" ||
+          data[i].garagetotalsqft == "" || data[i].calculatedfinishedsquarefeet == "" ||
+          data[i].fireplacecnt == "" || data[i].poolcnt == "" ||
+          data[i].regionidzip == "") {
+        continue;
+      }
       let longitude = data[i].longitude.split("");
       let latitude = data[i].latitude.split("");
       longitude.splice(4,0,".");
@@ -33,7 +41,7 @@ function mapPoints(geojson) {
   let california = svg.append("g");
 
   let zoom = d3.zoom()
-              .scaleExtent([1,8])
+              .scaleExtent([1,10])
               .on("zoom", zoomed);
 
   svg.call(zoom);
@@ -60,9 +68,8 @@ function mapPoints(geojson) {
     .attr("id", "dots")
     .attr("r", "10")
     .on("mouseover", function(d) {
-      let xPosition = d3.event.pageX + 15;
-      let yPosition = d3.event.pageY - 50;
-      console.log(d)
+      let xPosition = d3.event.pageX + 12;
+      let yPosition = d3.event.pageY - 75;
       d3.select("#tooltip")
         .style("left", xPosition + "px")
         .style("top", yPosition + "px");
@@ -74,22 +81,43 @@ function mapPoints(geojson) {
         .text(d.properties.roomcnt);
       d3.select("#tooltip4")
         .text(d.properties.bathroomcnt);
-      d3.select("#tooltip5")
-        .text(d.properties.bedroomcnt);
-      d3.select("#tooltip6")
-        .text(d.properties.garagecarcnt);
       d3.select("#tooltip")
         .classed("hidden", false);
     })
     .on("mouseout", function(){
       d3.select("#tooltip").classed("hidden", true);
+    })
+    .on("click", function(d) {
+      d3.select("#cost")
+        .text(`Cost: ${d.properties.taxvaluedollarcnt}`);
+      d3.select("#yb")
+        .text(`Year Built: ${d.properties.yearbuilt}`);
+      d3.select("#rc")
+        .text(`Room Count: ${d.properties.roomcnt == "" ? 0 : d.properties.roomcnt}`);
+      d3.select("#bathC")
+        .text(`Bathroom Count: ${d.properties.bathroomcnt == "" ? 0 : d.properties.bathroomcnt}`);
+      d3.select("#bedC")
+        .text(`Bedroom Count: ${d.properties.bedroomcnt == "" ? 0 : d.properties.bedroomcnt}`);
+      d3.select("#gc")
+        .text(`Garage Count: ${d.properties.garagecarcnt == "" ? 0 : d.properties.garagecarcnt}`);
+      d3.select("#garageSquareFeet")
+        .text(`Total Garage Square Feet: ${d.properties.garagetotalsqft == "" ? 0 : d.properties.garagetotalsqft}`);
+      d3.select("#squareFeet")
+        .text(`Total Square Feet: ${d.properties.calculatedfinishedsquarefeet}`);
+      d3.select("#fireplace")
+        .text(`Fireplace Count: ${d.properties.fireplacecnt == "" ? 0 : d.properties.fireplacecnt}`);
+      d3.select("#poolCount")
+        .text(`Pool Count: ${d.properties.poolcnt == "" ? 0 : d.properties.poolcnt}`);
+      d3.select("#zip")
+        .text(`Zip Code: ${d.properties.regionidzip  == "" ? "" : d.properties.regionidzip - 5000}`);
+      d3.selectAll("#brHide")
+        .style("display", "none");
     });
 
   function zoomed() {
     california.style("stroke-width", 1.5 / d3.event.transform.k + "px");
     california.attr("transform", d3.event.transform); 
-    dots.attr("transform", d3.event.transform); 
-    // addresses.selectAll("path").attr("d", geoPath.pointRadius(1));
+    dots.attr("transform", d3.event.transform);
   }
 }
 
