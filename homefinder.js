@@ -9,9 +9,7 @@ function loadFile() {
       if (data[i].taxvaluedollarcnt == "" || data[i].yearbuilt == "" ||
           data[i].roomcnt == "" || data[i].bathroomcnt == "" ||
           data[i].bedroomcnt == "" || data[i].garagecarcnt == "" ||
-          data[i].garagetotalsqft == "" || data[i].calculatedfinishedsquarefeet == "" ||
-          data[i].fireplacecnt == "" || data[i].poolcnt == "" ||
-          data[i].regionidzip == "") {
+          data[i].calculatedfinishedsquarefeet == "" || data[i].regionidzip == "") {
         continue;
       }
       let longitude = data[i].longitude.split("");
@@ -114,10 +112,110 @@ function mapPoints(geojson) {
         .style("display", "none");
     });
 
+  document.getElementById("clear").addEventListener("click", function(){
+    dots.selectAll("path").style("display", "block");
+  });
+
+  document.getElementById("submit").addEventListener("click", function(){
+    let minCost = document.getElementById("costMin").value;
+    let maxCost = document.getElementById("costMax").value;
+    let minYearbuilt = document.getElementById("yearBuiltMin").value;
+    let maxYearbuilt = document.getElementById("yearBuiltMax").value;
+    let roomCount = document.getElementById("roomCount").value;
+    let bathroomCount = document.getElementById("bathCount").value;
+    let bedroomCount = document.getElementById("bedCount").value;
+    let garageCount = document.getElementById("garageCount").value;
+
+    dots.selectAll("path").style("display", function(d) {
+      let show1 = true;
+      let show2 = true;
+      let show3 = true;
+      let show4 = true;
+      let show5 = true;
+      let show6 = true;
+      if (minCost != "" || maxCost != "") {
+        if (minCost == "") {
+          if (Number(d.properties.taxvaluedollarcnt) <= Number(maxCost)) {
+            show1 = true;
+          } else {
+            show1 = false;
+          }
+        } else if (maxCost == "") {
+          if (Number(d.properties.taxvaluedollarcnt) >= Number(minCost)) {
+            show1 = true;
+          } else {
+            show1 = false;
+          }
+        } else if (minCost < maxCost) {
+          if (Number(d.properties.taxvaluedollarcnt) >= Number(minCost) &&
+              Number(d.properties.taxvaluedollarcnt) <= Number(maxCost)) {
+            show1 = true;
+          } else {
+            show1 = false;
+          }
+        }
+      }
+      if (minYearbuilt != "" || maxYearbuilt != "") {
+        if (minYearbuilt == "") {
+          if (Number(d.properties.yearbuilt) <= Number(maxYearbuilt)) {
+            show2 = true;
+          } else {
+            show2 = false;
+          }
+        } else if (maxYearbuilt == "") {
+          if (Number(d.properties.yearbuilt) >= Number(minYearbuilt)) {
+            show2 = true;
+          } else {
+            show2 = false;
+          }
+        } else if (minYearbuilt < maxYearbuilt) {
+          if (Number(d.properties.yearbuilt) >= Number(minYearbuilt) &&
+              Number(d.properties.yearbuilt) <= Number(maxYearbuilt)) {
+            show2 = true;
+          } else {
+            show2 = false;
+          }
+        }
+      }
+      if (roomCount != "") {
+        if (Number(d.properties.roomcnt) >= Number(roomCount)) {
+          show3 = true;
+        } else {
+          show3 = false;
+        }
+      }
+      if (bathroomCount != "") {
+        if (Number(d.properties.bathroomcnt) >= Number(bathroomCount)) {
+          show4 = true;
+        } else {
+          show4 = false;
+        }
+      }
+      if (bedroomCount != "") {
+        if (Number(d.properties.bedroomcnt) >= Number(bedroomCount)) {
+          show5 = true;
+        } else {
+          show5 = false;
+        }
+      }
+      if (garageCount != "") {
+        if (Number(d.properties.garagecarcnt) >= Number(garageCount)) {
+          show6 = true;
+        } else {
+          show6 = false;
+        }
+      }
+      if (show1 && show2 && show3 && show4 && show5 && show6) {
+        return "block";
+      } else {
+        return "none";
+      }
+    });
+  });
+
   function zoomed() {
     california.style("stroke-width", 1.5 / d3.event.transform.k + "px");
     california.attr("transform", d3.event.transform); 
     dots.attr("transform", d3.event.transform);
   }
 }
-
