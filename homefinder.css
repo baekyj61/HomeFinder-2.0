@@ -23,11 +23,15 @@ legend {
 	stroke: black;
 }
 
+#filteredInfo {
+	font-size: 1.5em;
+}
+
 #filters {
 	position: absolute;
 	top: 60px;
 	left: 1075px;
-	width: 320px;
+	width: 355px;
 	height: 300px;
 	font-size: 1.5em;
 }
@@ -41,7 +45,70 @@ legend {
 	font-size: 1.5em;
 }
 
-#compareBox {
+#compareBox legend {
+	font-size: 1.5em;
+
+}
+
+#house1 legend {
+	font-size: 1.5em;
+	color: #0000FF;
+}
+
+#house2 legend {
+	font-size: 1.5em;
+	color: #06DC19;
+}
+
+#house3 legend {
+	font-size: 1.5em;
+	color: #8806DC;
+}
+
+#house1 {
+	margin-left: 10px;
+	margin-right: 150px;
+	left: 0px;
+	width: 320px;
+	height: 460px;
+	display: inline-block;
+}
+
+#house2 {
+	margin-right: 150px;
+	left: 500px;
+	width: 320px;
+	height: 460px;
+	display: inline-block;
+}
+
+#house3 {
+	left: 1075px;
+	width: 320px;
+	height: 460px;
+	display: inline-block;
+}
+
+#clearButtons {
+	margin-top: 10px
+}
+
+#clearHouse1 {
+	margin-left: 125px;
+	margin-right: 410px;
+	display: inline-block;
+}
+
+#clearHouse2 {
+	margin-right: 410px;
+	display: inline-block;
+}
+
+#clearHouse3 {
+	display: inline-block;
+}
+
+#infoBox {
 	position: absolute;
 	top: 325px;
 	left: 1075px;
@@ -51,22 +118,20 @@ legend {
 	border-radius: 10px;
 }
 
+#compareBox {
+	position: absolute;
+	width: 1385px;
+	display: none;
+}
+
 #compareButton {
 	width: 49%;
 	height: 2em;
 }
 
-#saveButton {
+#clearButton {
 	width: 49%;
 	height: 2em;
-}
-
-#savedList {
-	position: absolute;
-	width: 160px;
-	height: 2em;
-	top: 35px;
-	left: 1075px;
 }
 
 #tooltip {

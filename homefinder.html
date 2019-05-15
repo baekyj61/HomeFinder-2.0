@@ -11,8 +11,6 @@
 	<body onload="loadFile()">
 		<h1 id="title">HomeFinder 2.0</h1>
 
-		<button type="button" id = "savedList">Saved Houses</button>
-
 		<fieldset id = "map">
 			<legend id = "mapLegend">Houses in California</legend>
 			<svg id="vis" width="1000" height="700"></svg>
@@ -21,7 +19,7 @@
 		<div id="tooltip" class="hidden">
 			<p>Cost: <span id="tooltip1">Cost</span></p>
 			<p>Year Built: <span id="tooltip2">Year Built</span></p>
-			<p>Room Count: <span id="tooltip3">Room Count</span></p>
+			<p>Bedroom Count: <span id="tooltip3">Room Count</span></p>
 			<p>Bathroom Count: <span id="tooltip4">Bathroom Count</span></p>
 		</div>
 
@@ -86,14 +84,14 @@
 							<option value="5">5</option>
 						</select>&emsp;<br>
 
-						<input type="reset" id="clear" value="Clear">
 						<input type="button" id="submit" value="Submit Information">
+						<input type="reset" id="clear" value="Clear">
 				</fieldset>
 			</form>
 		</div>
 
-		<fieldset id="compareBox">
-			Info about currently selected house.
+		<fieldset id="infoBox">
+			<legend id="filteredInfo">Currently Selected House</legend>
 			<p id="cost"></p>
 			<p id="yb"></p>
 			<p id="rc"></p>
@@ -128,7 +126,66 @@
 			<br id = "brHide" class="hidden">
 			<br id = "brHide" class="hidden">
 			<button type="button" id = "compareButton">Compare</button>
-			<button type="button" id = "saveButton" >Save</button>
+			<button type="button" id = "clearButton" >Clear</button>
+		</fieldset>
+
+		<fieldset id="compareBox" class="hidden">
+			<legend>Compare Upto 3 Houses</legend>
+			
+			<div>
+			<fieldset id="house1" class="hidden1">
+				<legend>House 1</legend>
+				<p id="intro1">Please choose your first house</p>
+				<p id="cost1"> </p>
+				<p id="yb1"> </p>
+				<p id="rc1"> </p>
+				<p id="bathC1"> </p>
+				<p id="bedC1"> </p>
+				<p id="gc1"> </p>
+				<p id="garageSquareFeet1"> </p>
+				<p id="squareFeet1"> </p>
+				<p id="fireplace1"> </p>
+				<p id="poolCount1"> </p>
+				<p id="zip1"> </p>
+			</fieldset>
+
+			<fieldset id="house2" class="hidden2">
+				<legend>House 2</legend>
+				<p id="intro2">Please choose your second house</p>
+				<p id="cost2"> </p>
+				<p id="yb2"> </p>
+				<p id="rc2"> </p>
+				<p id="bathC2"> </p>
+				<p id="bedC2"> </p>
+				<p id="gc2"> </p>
+				<p id="garageSquareFeet2"> </p>
+				<p id="squareFeet2"> </p>
+				<p id="fireplace2"> </p>
+				<p id="poolCount2"> </p>
+				<p id="zip2"> </p>
+			</fieldset>
+
+			<fieldset id="house3" class="hidden3">
+				<legend>House 3</legend>
+				<p id="intro3">Please choose your third house</p>
+				<p id="cost3"> </p>
+				<p id="yb3"> </p>
+				<p id="rc3"> </p>
+				<p id="bathC3"> </p>
+				<p id="bedC3"> </p>
+				<p id="gc3"> </p>
+				<p id="garageSquareFeet3"> </p>
+				<p id="squareFeet3"> </p>
+				<p id="fireplace3"> </p>
+				<p id="poolCount3"> </p>
+				<p id="zip3"> </p>
+			</fieldset>
+			</div>
+			<div id="clearButtons">
+				<button type="button" id = "clearHouse1" class="hidden1">Clear House 1</button>
+				<button type="button" id = "clearHouse2" class="hidden2">Clear House 2</button>
+				<button type="button" id = "clearHouse3" class="hidden3">Clear House 3</button>
+			</div>
 		</fieldset>
 
 	</body>
