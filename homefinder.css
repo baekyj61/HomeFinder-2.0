@@ -124,6 +124,16 @@ legend {
 	display: none;
 }
 
+#clear {
+	width: 49%;
+	height: 2em;
+}
+
+#submit {
+	width: 49%;
+	height: 2em;
+}
+
 #compareButton {
 	width: 49%;
 	height: 2em;

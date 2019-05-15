@@ -138,28 +138,61 @@ function mapPoints(geojson) {
           alert("Please clear at least 1 house info to compare another house.");
 
         } else if (!house1Filled) {
-          d3.select(this).style("fill", "#0000FF");
-          fillHouse1(currentHouse);
-          house1Filled = true;
-          house1 = this;
-          id1 = d.properties.parcelid;
-          d3.select("#intro1").style("display", "none");
+          let dontFill1 = false;
+
+          if (id2 != null || id3 != null) {
+            if (id2 == d.properties.parcelid || id3 == d.properties.parcelid) {
+              dontFill1 = true;
+            }
+          }
+          if (!dontFill1) {
+            d3.select(this).style("fill", "#0000FF");
+            fillHouse1(currentHouse);
+            house1Filled = true;
+            house1 = this;
+            id1 = d.properties.parcelid;
+            d3.select("#intro1").style("display", "none");
+          } else {
+            alert("Choose a different house!");
+          }
 
         } else if (!house2Filled) {
-          d3.select(this).style("fill", "#06DC19");
-          fillHouse2(currentHouse);
-          house2Filled = true;
-          house2 = this;
-          id2 = d.properties.parcelid;
-          d3.select("#intro2").style("display", "none");
+          let dontFill2 = false;
+
+          if (id1 != null || id3 != null) {
+            if (id1 == d.properties.parcelid || id3 == d.properties.parcelid) {
+              dontFill2 = true;
+            }
+          }
+          if (!dontFill2) {
+            d3.select(this).style("fill", "#06DC19");
+            fillHouse2(currentHouse);
+            house2Filled = true;
+            house2 = this;
+            id2 = d.properties.parcelid;
+            d3.select("#intro2").style("display", "none");
+          } else {
+            alert("Choose a different house!");
+          }
 
         } else if (!house3Filled) {
-          d3.select(this).style("fill", "#8806DC");
-          fillHouse3(currentHouse);
-          house3Filled = true;
-          house3 = this;
-          id3 = d.properties.parcelid;
-          d3.select("#intro3").style("display", "none");
+          let dontFill3 = false;
+
+          if (id1 != null || id2 != null) {
+            if (id1 == d.properties.parcelid || id2 == d.properties.parcelid) {
+              dontFill3 = true;
+            }
+          }
+          if (!dontFill3) {
+            d3.select(this).style("fill", "#8806DC");
+            fillHouse3(currentHouse);
+            house3Filled = true;
+            house3 = this;
+            id3 = d.properties.parcelid;
+            d3.select("#intro3").style("display", "none");
+          } else {
+            alert("Choose a different house!");
+          }
         }
       }
 
@@ -207,6 +240,8 @@ function mapPoints(geojson) {
         d3.select("#intro1").style("display", "none");
         fillHouse1(currentHouse);
         house1Filled = true;
+        house1 = currentDot;
+        id1 = currentHouse.parcelid;
       }
     } else {
       d3.select("#compareBox").style("display", "none");
@@ -215,8 +250,6 @@ function mapPoints(geojson) {
       clearHouse1();
       clearHouse2();
       clearHouse3();
-      currentHouse = null;
-      currentDot = null;
       house1Filled = false;
       house2Filled = false;
       house3Filled = false;
@@ -225,13 +258,21 @@ function mapPoints(geojson) {
       d3.select("#intro3").style("display", "block");
       if (house1 != null) {
         d3.select(house1).style("fill", "#FF0000");
+        house1 = null;
+        id1 = null;
       }
       if (house2 != null) {
         d3.select(house2).style("fill", "#FF0000");
+        house2 = null;
+        id2 = null;
       }
       if (house3 != null) {
         d3.select(house3).style("fill", "#FF0000");
+        house3 = null;
+        id3 = null;
       }
+      currentHouse = null;
+      currentDot = null;
     }
   });
 
@@ -272,6 +313,19 @@ function mapPoints(geojson) {
       let show4 = true;
       let show5 = true;
       let show6 = true;
+
+      if (id1 != null || id2 != null || id3 != null) {
+        if (id1 == d.properties.parcelid) {
+          return "block";
+        }
+        if (id2 == d.properties.parcelid) {
+          return "block";
+        }
+        if (id3 == d.properties.parcelid) {
+          return "block";
+        }
+      }
+
       if (minCost != "" || maxCost != "") {
         if (minCost == "") {
           if (Number(d.properties.taxvaluedollarcnt) <= Number(maxCost)) {
@@ -353,6 +407,7 @@ function mapPoints(geojson) {
   });
 
   function fillHouse1(info1) {
+    d3.selectAll("#brHide1").style("display", "none");
     d3.select("#cost1")
       .text(`Cost: ${info1.taxvaluedollarcnt}`);
     d3.select("#yb1")
@@ -378,6 +433,7 @@ function mapPoints(geojson) {
   }
 
   function fillHouse2(info2) {
+    d3.selectAll("#brHide2").style("display", "none");
     d3.select("#cost2")
       .text(`Cost: ${info2.taxvaluedollarcnt}`);
     d3.select("#yb2")
@@ -403,6 +459,7 @@ function mapPoints(geojson) {
   }
 
   function fillHouse3(info3) {
+    d3.selectAll("#brHide3").style("display", "none");
     d3.select("#cost3")
       .text(`Cost: ${info3.taxvaluedollarcnt}`);
     d3.select("#yb3")
@@ -444,6 +501,7 @@ function mapPoints(geojson) {
   }
 
   function clearHouse1() {
+    d3.selectAll("#brHide1").style("display", "block");
     d3.select("#intro1").style("display", "block");
     d3.select("#cost1").text("");
     d3.select("#yb1").text("");
@@ -459,6 +517,7 @@ function mapPoints(geojson) {
   }
 
   function clearHouse2() {
+    d3.selectAll("#brHide2").style("display", "block");
     d3.select("#intro2").style("display", "block");
     d3.select("#cost2").text("");
     d3.select("#yb2").text("");
@@ -474,6 +533,7 @@ function mapPoints(geojson) {
   }
 
   function clearHouse3() {
+    d3.selectAll("#brHide3").style("display", "block");
     d3.select("#intro3").style("display", "block");
     d3.select("#cost3").text("");
     d3.select("#yb3").text("");
